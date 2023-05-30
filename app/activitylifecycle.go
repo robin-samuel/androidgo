@@ -4,12 +4,13 @@ import "fmt"
 
 // ActivityLifecycleCallbacks represents the callbacks for activity lifecycle events.
 type ActivityLifecycleCallbacks interface {
-	OnActivityCreated(activity Activity)
+	OnActivityCreated(activity Activity, bundle Bundle)
 	OnActivityStarted(activity Activity)
 	OnActivityResumed(activity Activity)
 	OnActivityPaused(activity Activity)
 	OnActivityStopped(activity Activity)
 	OnActivityDestroyed(activity Activity)
+	OnActivitySaveInstanceState(activity Activity, bundle Bundle)
 }
 
 // RegisterActivityLifecycleCallbacks registers an activity lifecycle callback.
@@ -34,7 +35,7 @@ func (app *Application) PerformActivityLifecycleCallbacks(activity Activity, eve
 	for _, callback := range app.activityLifecycleCbs {
 		switch event {
 		case "Created":
-			callback.OnActivityCreated(activity)
+			callback.OnActivityCreated(activity, activity.SavedInstance)
 		case "Started":
 			callback.OnActivityStarted(activity)
 		case "Resumed":
@@ -45,6 +46,8 @@ func (app *Application) PerformActivityLifecycleCallbacks(activity Activity, eve
 			callback.OnActivityStopped(activity)
 		case "Destroyed":
 			callback.OnActivityDestroyed(activity)
+		case "SaveInstanceState":
+			callback.OnActivitySaveInstanceState(activity, activity.SavedInstance)
 		default:
 			fmt.Println("Unknown event:", event)
 		}
