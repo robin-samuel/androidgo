@@ -12,11 +12,6 @@ type ActivityLifecycleCallbacks interface {
 	OnActivityDestroyed(activity Activity)
 }
 
-// Activity represents an activity in the application.
-type Activity struct {
-	Name string
-}
-
 // RegisterActivityLifecycleCallbacks registers an activity lifecycle callback.
 func (app *Application) RegisterActivityLifecycleCallbacks(callback ActivityLifecycleCallbacks) {
 	app.mu.Lock()
