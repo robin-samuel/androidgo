@@ -7,7 +7,7 @@ import (
 
 	"github.com/google/uuid"
 	"github.com/robin-samuel/androidgo/locale"
-	"github.com/robin-samuel/androidgo/systemclock"
+	"github.com/robin-samuel/androidgo/os/systemclock"
 )
 
 type Device struct {
